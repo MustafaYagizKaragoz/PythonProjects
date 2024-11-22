@@ -1,11 +1,12 @@
 from hanging import GameManager
-
 gm = GameManager()
-
+print("\nWelcome to Hangman!")
 gm.show()
-while gm.tries > -1:
-    if gm.tries == 0:
-        print("\nYou lose!")
-        break
-    guess = str(input("\nEnter your guess: "))
+
+while gm.tries > 0:  
+    guess = input("\n\nEnter your guess: ").strip()
+    if not guess:
+        print("Please enter a valid letter.")
+        continue
+
     gm.guess(guess)
