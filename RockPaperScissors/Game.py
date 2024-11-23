@@ -17,5 +17,5 @@ class Game:
 
 if __name__=="__main__":
     game=Game()
-    game.create_player("Ecem",True,"Pc",True)
+    game.create_player("Ecem",True,"Pc",False)
     game.play_game()
