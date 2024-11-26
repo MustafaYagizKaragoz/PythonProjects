@@ -15,12 +15,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.run = True
         self.FPS = 60
-        self.left_paddle = Paddle(10, HEIGHT//2 - PADDLE_HEIGHT//2, PADDLE_WIDTH, PADDLE_HEIGHT)
-        self.right_paddle = Paddle(WIDTH - PADDLE_WIDTH - 10, HEIGHT//2 - PADDLE_HEIGHT//2, PADDLE_WIDTH, PADDLE_HEIGHT)
-        self.ball = Ball(WIDTH//2, HEIGHT//2, 10)
-        self.left_score = 0
-        self.right_score = 0
-        
+        self.reset()
     def play(self):
         while self.run:
             self.clock.tick(self.FPS)
@@ -75,6 +70,12 @@ class Game:
             self.ball.y = HEIGHT//2
             self.ball.x_velocity = -5
             self.ball.y_velocity = 0
+    def reset(self):
+        self.left_score = 0
+        self.right_score = 0
+        self.left_paddle = Paddle(10, HEIGHT//2 - PADDLE_HEIGHT//2, PADDLE_WIDTH, PADDLE_HEIGHT)
+        self.right_paddle = Paddle(WIDTH - PADDLE_WIDTH - 10, HEIGHT//2 - PADDLE_HEIGHT//2, PADDLE_WIDTH, PADDLE_HEIGHT)
+        self.ball = Ball(WIDTH//2, HEIGHT//2, 10)
     def check_winner(self):
         if self.left_score == 3:
             font = pygame.font.Font(None, 74)
@@ -82,14 +83,14 @@ class Game:
             self.display.blit(text, (WIDTH//2 - 200, HEIGHT//2))
             pygame.display.update()  
             pygame.time.delay(3000)  
-            self.run = False  
+            self.reset()
         elif self.right_score == 3:
             font = pygame.font.Font(None, 74)
             text = font.render("Right Player Wins", True, WEIGHT)
             self.display.blit(text, (WIDTH//2 - 200, HEIGHT//2))
             pygame.display.update()  
             pygame.time.delay(3000)  
-            self.run = False  
+            self.reset()
     def check_collision(self,ball,right_paddle,left_paddle):
         if ball.y - ball.radius >= HEIGHT:
             ball.y_velocity *= -1
